@@ -1,0 +1,4 @@
+Bundle-Name: form
+Bundle-SymbolicName: com.vireak.form
+Bundle-Version: 1.0.0
+Export-Package: com.vireak.form.constants
