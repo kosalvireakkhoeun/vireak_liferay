@@ -26,7 +26,7 @@
 
       <%-- Iterator / Paging --%>
       <liferay-ui:search-iterator
-         displayStyle="${assignmentsManagementToolbarDisplayContext.getDisplaySt markupView="lexicon"
+         displayStyle ="${assignmentsManagementToolbarDisplayContext.getDisplayStyle()}" markupView ="lexicon"
          />
    </liferay-ui:search-container>
 </div>
