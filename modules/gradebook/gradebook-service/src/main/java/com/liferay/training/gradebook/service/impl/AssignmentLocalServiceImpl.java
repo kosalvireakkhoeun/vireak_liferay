@@ -30,7 +30,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.liferay.training.gradebook.validator.AssignmentValidator;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * The implementation of the assignment local service.
@@ -56,6 +58,7 @@ import org.osgi.service.component.annotations.Component;
 public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
     public Assignment addAssignment(long groupId, String title, String description,
                                     Date dueDate, ServiceContext serviceContext) throws PortalException {
+        _assignmentValidator.validate(title, description, dueDate);
 // Get group and user.
         Group group = groupLocalService.getGroup(groupId);
         long userId = serviceContext.getUserId();
@@ -79,6 +82,7 @@ public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
 
     public Assignment updateAssignment(long assignmentId, String title,
                                        String description, Date dueDate, ServiceContext serviceContext) throws PortalException {
+        _assignmentValidator.validate(title, description, dueDate);
         // Get the Assignment by id.
         Assignment assignment = getAssignment(assignmentId);
 // Set updated fields and modification date.
@@ -142,4 +146,6 @@ public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
     public Assignment updateAssignment(Assignment assignment) {
         throw new UnsupportedOperationException("Not supported.");
     }
+    @Reference
+    AssignmentValidator _assignmentValidator;
 }

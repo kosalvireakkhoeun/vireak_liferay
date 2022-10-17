@@ -19,7 +19,8 @@ import org.osgi.service.component.annotations.Reference;
 @Component(
         immediate = true,
         property = {
-                "javax.portlet.name=" + GradebookPortletKeys.GRADEBOOK,"mvc.command.name=/gradebook/assignment/delete"
+                "javax.portlet.name=" + GradebookPortletKeys.GRADEBOOK,
+                "mvc.command.name=/gradebook/assignment/delete"
         },
         service = MVCActionCommand.class
 )
@@ -28,18 +29,19 @@ public class DeleteAssignmentMVCActionCommand extends BaseMVCActionCommand {
     protected void doProcessAction(
             ActionRequest actionRequest, ActionResponse actionResponse)
             throws Exception {
-// Get assignment id from request.
+        // Get assignment id from request.
         long assignmentId = ParamUtil.getLong(actionRequest, "assignmentId");
         try {
-// Call service to delete the assignment.
+            // Call service to delete the assignment.
             _assignmentService.deleteAssignment(assignmentId);
-// Set success message.
+            // Set success message.
             SessionMessages.add(actionRequest, "assignmentDeleted");
         }
         catch (PortalException pe) {
-// Set error messages from the service layer.
+            // Set error messages from the service layer.
             SessionErrors.add(actionRequest, "serviceErrorDetails", pe);
-        }}
+        }
+    }
     @Reference
     protected AssignmentService _assignmentService;
 }
