@@ -10,6 +10,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.training.gradebook.service.impl;
 
 import com.liferay.portal.aop.AopService;
@@ -18,6 +19,7 @@ import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -56,18 +58,23 @@ import org.osgi.service.component.annotations.Reference;
         service = AopService.class
 )
 public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
-    public Assignment addAssignment(long groupId, String title, String description,
-                                    Date dueDate, ServiceContext serviceContext) throws PortalException {
+    public Assignment addAssignment(
+            long groupId, String title, String description,
+            Date dueDate, ServiceContext serviceContext)
+            throws PortalException {
+        // Validate assignment parameters.
         _assignmentValidator.validate(title, description, dueDate);
-// Get group and user.
+        // Get group and user.
         Group group = groupLocalService.getGroup(groupId);
         long userId = serviceContext.getUserId();
         User user = userLocalService.getUser(userId);
-// Generate primary key for the assignment.
-        long assignmentId = counterLocalService.increment(Assignment.class.getName());
-// Create assigment. This doesn't yet persist the entity.
+        // Generate primary key for the assignment.
+        long assignmentId =
+                counterLocalService.increment(Assignment.class.getName());
+        // Create assigment. This doesn't yet persist the entity.
         Assignment assignment = createAssignment(assignmentId);
-// Populate fields.assignment.setCompanyId(group.getCompanyId());
+        // Populate fields.
+        assignment.setCompanyId(group.getCompanyId());
         assignment.setCreateDate(serviceContext.getCreateDate(new Date()));
         assignment.setDueDate(dueDate);
         assignment.setDescription(description);
@@ -76,8 +83,23 @@ public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
         assignment.setTitle(title);
         assignment.setUserId(userId);
         assignment.setUserName(user.getScreenName());
-// Persist assignment to database.
-        return super.addAssignment(assignment);
+        // Persist assignment to database.
+        assignment = super.addAssignment(assignment);
+        // Add permission resources.
+        boolean portletActions = false;
+        boolean addGroupPermissions = true;
+        boolean addGuestPermissions = true;
+        resourceLocalService.addResources(
+                group.getCompanyId(), groupId, userId, Assignment.class.getName(), assignment.getAssignmentId(), portletActions, addGroupPermissions, addGuestPermissions);
+        return assignment;
+    }
+    public Assignment deleteAssignment(Assignment assignment)
+            throws PortalException {
+        // Delete permission resources.
+        resourceLocalService.deleteResource(
+                assignment, ResourceConstants.SCOPE_INDIVIDUAL);
+        // Delete the Assignment
+        return super.deleteAssignment(assignment);
     }
 
     public Assignment updateAssignment(long assignmentId, String title,
@@ -94,7 +116,7 @@ public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
         return assignment;
     }
 
-    public List<Assignment> getAssignmentsByGroupId(long groupId) {
+    public List<Assignment> getAssignmentsByGroupId(long groupId) throws PortalException {
         return assignmentPersistence.findByGroupId(groupId);
     }
 
