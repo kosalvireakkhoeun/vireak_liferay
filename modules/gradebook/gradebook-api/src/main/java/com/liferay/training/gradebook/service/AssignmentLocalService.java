@@ -106,9 +106,11 @@ public interface AssignmentLocalService
 	 *
 	 * @param assignment the assignment
 	 * @return the assignment that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
-	public Assignment deleteAssignment(Assignment assignment);
+	public Assignment deleteAssignment(Assignment assignment)
+		throws PortalException;
 
 	/**
 	 * Deletes the assignment with the primary key from the database. Also notifies the appropriate model listeners.
@@ -235,7 +237,8 @@ public interface AssignmentLocalService
 	public List<Assignment> getAssignments(int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<Assignment> getAssignmentsByGroupId(long groupId);
+	public List<Assignment> getAssignmentsByGroupId(long groupId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Assignment> getAssignmentsByGroupId(

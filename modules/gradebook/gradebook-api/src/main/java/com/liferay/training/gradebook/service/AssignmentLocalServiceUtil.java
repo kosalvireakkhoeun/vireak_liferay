@@ -98,8 +98,11 @@ public class AssignmentLocalServiceUtil {
 	 *
 	 * @param assignment the assignment
 	 * @return the assignment that was removed
+	 * @throws PortalException
 	 */
-	public static Assignment deleteAssignment(Assignment assignment) {
+	public static Assignment deleteAssignment(Assignment assignment)
+		throws PortalException {
+
 		return getService().deleteAssignment(assignment);
 	}
 
@@ -253,7 +256,9 @@ public class AssignmentLocalServiceUtil {
 		return getService().getAssignments(start, end);
 	}
 
-	public static List<Assignment> getAssignmentsByGroupId(long groupId) {
+	public static List<Assignment> getAssignmentsByGroupId(long groupId)
+		throws PortalException {
+
 		return getService().getAssignmentsByGroupId(groupId);
 	}
 

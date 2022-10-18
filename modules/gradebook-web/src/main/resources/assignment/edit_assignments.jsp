@@ -11,7 +11,7 @@
    <portlet:actionURL var="assignmentActionURL" name="<%=MVCCommandNames.ADD_ASSIGNMENT%>">
       <portlet:param name="redirect" value="${param.redirect}" />
       </portlet:actionURL>
-      <c:set var="editTitle" value="add-assignment"/>
+      <c:set var="editTitle" value="Add New Assignment"/>
       </c:otherwise>
       </c:choose>
       <div class="container-fluid-1280 edit-assignment">

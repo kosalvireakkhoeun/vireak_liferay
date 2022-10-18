@@ -97,10 +97,12 @@ public class AssignmentLocalServiceWrapper
 	 *
 	 * @param assignment the assignment
 	 * @return the assignment that was removed
+	 * @throws PortalException
 	 */
 	@Override
 	public com.liferay.training.gradebook.model.Assignment deleteAssignment(
-		com.liferay.training.gradebook.model.Assignment assignment) {
+			com.liferay.training.gradebook.model.Assignment assignment)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _assignmentLocalService.deleteAssignment(assignment);
 	}
@@ -286,7 +288,8 @@ public class AssignmentLocalServiceWrapper
 
 	@Override
 	public java.util.List<com.liferay.training.gradebook.model.Assignment>
-		getAssignmentsByGroupId(long groupId) {
+			getAssignmentsByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _assignmentLocalService.getAssignmentsByGroupId(groupId);
 	}
