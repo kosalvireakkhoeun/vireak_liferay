@@ -19,6 +19,8 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+
+import com.liferay.training.gradebook.web.internal.security.permission.resource.AssignmentPermission;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 /**
@@ -44,6 +46,7 @@ public class ViewAssignmentsMVCRenderCommand implements MVCRenderCommand {
         addAssignmentListAttributes(renderRequest);
         // Add Clay management toolbar related attributes.
         addManagementToolbarAttributes(renderRequest, renderResponse);
+        renderRequest.setAttribute("assignmentPermission", _assignmentPermission);
         return "/view.jsp";
     }
     /**
@@ -112,4 +115,6 @@ public class ViewAssignmentsMVCRenderCommand implements MVCRenderCommand {
     protected AssignmentService _assignmentService;
     @Reference
     private Portal _portal;
+    @Reference
+    protected AssignmentPermission _assignmentPermission;
 }

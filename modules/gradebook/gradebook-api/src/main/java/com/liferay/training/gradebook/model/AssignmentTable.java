@@ -32,6 +32,8 @@ public class AssignmentTable extends BaseTable<AssignmentTable> {
 
 	public static final AssignmentTable INSTANCE = new AssignmentTable();
 
+	public final Column<AssignmentTable, String> uuid = createColumn(
+		"uuid_", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AssignmentTable, Long> assignmentId = createColumn(
 		"assignmentId", Long.class, Types.BIGINT, Column.FLAG_PRIMARY);
 	public final Column<AssignmentTable, Long> groupId = createColumn(
@@ -52,6 +54,16 @@ public class AssignmentTable extends BaseTable<AssignmentTable> {
 		"description", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AssignmentTable, Date> dueDate = createColumn(
 		"dueDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+	public final Column<AssignmentTable, Integer> status = createColumn(
+		"status", Integer.class, Types.INTEGER, Column.FLAG_DEFAULT);
+	public final Column<AssignmentTable, Long> statusByUserId = createColumn(
+		"statusByUserId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+	public final Column<AssignmentTable, String> statusByUserName =
+		createColumn(
+			"statusByUserName", String.class, Types.VARCHAR,
+			Column.FLAG_DEFAULT);
+	public final Column<AssignmentTable, Date> statusDate = createColumn(
+		"statusDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 
 	private AssignmentTable() {
 		super("Gradebook_Assignment", AssignmentTable::new);

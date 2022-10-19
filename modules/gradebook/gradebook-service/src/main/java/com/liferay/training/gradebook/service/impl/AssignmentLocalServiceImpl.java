@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.training.gradebook.model.Assignment;
@@ -91,6 +92,7 @@ public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
         boolean addGuestPermissions = true;
         resourceLocalService.addResources(
                 group.getCompanyId(), groupId, userId, Assignment.class.getName(), assignment.getAssignmentId(), portletActions, addGroupPermissions, addGuestPermissions);
+        updateAsset(assignment, serviceContext);
         return assignment;
     }
     public Assignment deleteAssignment(Assignment assignment)
@@ -99,6 +101,8 @@ public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
         resourceLocalService.deleteResource(
                 assignment, ResourceConstants.SCOPE_INDIVIDUAL);
         // Delete the Assignment
+        assetEntryLocalService.deleteEntry(
+                Assignment.class.getName(), assignment.getAssignmentId());
         return super.deleteAssignment(assignment);
     }
 
@@ -113,6 +117,7 @@ public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
         assignment.setDueDate(dueDate);
         assignment.setDescription(description);
         assignment = super.updateAssignment(assignment);
+        updateAsset(assignment, serviceContext);
         return assignment;
     }
 
@@ -157,6 +162,21 @@ public class AssignmentLocalServiceImpl extends AssignmentLocalServiceBaseImpl {
             dynamicQuery.add(disjunctionQuery);
         }
         return dynamicQuery;
+    }
+    private void updateAsset(
+            Assignment assignment, ServiceContext serviceContext)
+            throws PortalException {
+        assetEntryLocalService.updateEntry(
+                serviceContext.getUserId(), serviceContext.getScopeGroupId(),
+                assignment.getCreateDate(), assignment.getModifiedDate(),
+                Assignment.class.getName(), assignment.getAssignmentId(),
+                assignment.getUserUuid(), 0, serviceContext.getAssetCategoryIds(),
+                serviceContext.getAssetTagNames(), true, true,
+                assignment.getCreateDate(), null, null, null,
+                ContentTypes.TEXT_HTML,
+                assignment.getTitle(),
+                assignment.getDescription(), null, null, null, 0, 0,
+                serviceContext.getAssetPriority());
     }
 
     @Override

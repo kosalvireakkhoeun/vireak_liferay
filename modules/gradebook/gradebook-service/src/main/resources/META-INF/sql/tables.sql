@@ -1,4 +1,5 @@
 create table Gradebook_Assignment (
+	uuid_ VARCHAR(75) null,
 	assignmentId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -8,5 +9,9 @@ create table Gradebook_Assignment (
 	modifiedDate DATE null,
 	title VARCHAR(75) null,
 	description VARCHAR(75) null,
-	dueDate DATE null
+	dueDate DATE null,
+	status INTEGER,
+	statusByUserId LONG,
+	statusByUserName VARCHAR(75) null,
+	statusDate DATE null
 );
