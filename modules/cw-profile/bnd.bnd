@@ -1,0 +1,4 @@
+Bundle-Name: cw-profile
+Bundle-SymbolicName: com.vireak.cwprofile
+Bundle-Version: 1.0.0
+Export-Package: com.vireak.cwprofile.constants
