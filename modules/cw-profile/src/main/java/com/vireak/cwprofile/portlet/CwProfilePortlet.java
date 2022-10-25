@@ -17,7 +17,7 @@ import org.osgi.service.component.annotations.Component;
 		"com.liferay.portlet.display-category=category.social",
 		"com.liferay.portlet.header-portlet-css=/css/main.css",
 		"com.liferay.portlet.instanceable=false",
-		"javax.portlet.display-name=CwProfile",
+		"javax.portlet.display-name=" + CwProfilePortletKeys.DisplayName,
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.name=" + CwProfilePortletKeys.CWPROFILE,
