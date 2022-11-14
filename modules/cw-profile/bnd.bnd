@@ -1,4 +1,5 @@
 Bundle-Name: cw-profile
-Bundle-SymbolicName: com.vireak.cwprofile
+Bundle-SymbolicName: com.khalibre.cec.profile
 Bundle-Version: 1.0.0
-Export-Package: com.vireak.cwprofile.constants
+Export-Package: com.khalibre.cec.profile.constants
+Web-ContextPath: /cw-profile

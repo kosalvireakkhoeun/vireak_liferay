@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "workspaces": {
+        "packages": [
+            "modules/cw-profile",
+            "modules/vue",
+            "modules/vue2"
+        ]
+    }
+}

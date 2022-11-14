@@ -35,7 +35,7 @@ import com.liferay.portal.kernel.util.PortalUtil;
 @Component(immediate = true, property = { "com.liferay.portlet.display-category=category.social",
 		"com.liferay.portlet.header-portlet-css=/css/main.css", 
 		"com.liferay.portlet.instanceable=false",
-		"com.liferay.portlet.scopeable=true", 
+		"com.liferay.portlet.scopeable=true",
 		"javax.portlet.name=" + GuestbookPortletKeys.GUESTBOOK,
 		"javax.portlet.display-name=Guestbook", 
 		"javax.portlet.expiration-cache=0",

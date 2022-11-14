@@ -1,0 +1,52 @@
+ <label><%=LanguageUtil.get(request,"account-mapping")%></label>
+        <aui:fieldset>
+            <div class="col-md-2">
+                <div class="form-group input-text-wrapper">
+                    <label><%= LanguageUtil.get(request,"domain") %></label>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                 <div class="form-group input-text-wrapper">
+                    <label><%= LanguageUtil.get(request,"sample-domain") %></label>
+                 </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group input-text-wrapper">
+                    <label><%= LanguageUtil.get(request,"email") %></label>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                 <div class="form-group input-text-wrapper">
+                    <label><%= LanguageUtil.get(request,"sample-email") %></label>
+                 </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group input-text-wrapper">
+                    <label><%= LanguageUtil.get(request,"primary-email") %></label>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                 <div class="form-group input-text-wrapper">
+                    <label><%= LanguageUtil.get(request,"sample-primary-email") %></label>
+                 </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group input-text-wrapper">
+                   <label><%=LanguageUtil.get(request,"enter-again")%></label>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+               <aui:input name="secondaryEmail" value="" placeholder="example@email.com" label="" >
+                  <aui:validator name="email" />
+               </aui:input>
+            </div>
+
+
+        </aui:fieldset>

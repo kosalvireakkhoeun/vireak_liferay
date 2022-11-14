@@ -1,0 +1,5 @@
+Bundle-Name: vue
+Bundle-SymbolicName: com.liferay.vue
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.vue.constants
+Web-ContextPath: /vue

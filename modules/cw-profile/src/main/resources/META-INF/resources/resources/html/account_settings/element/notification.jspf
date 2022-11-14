@@ -1,0 +1,62 @@
+<p class="title"><%=LanguageUtil.get(request,"notification")%></p>
+<aui:fieldset>
+    <%
+        List<ActivitiesGroup> activities = activityContext.getActivitiesGroupList();
+        if(!activities.isEmpty()){
+    %>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <%=LanguageUtil.get(request,"type")%>
+                            </th>
+                            <th colspan="2">
+                                <%=LanguageUtil.get(request,"email-notification")%>
+                            </th>
+                            <th class="text-center">
+                                <%=LanguageUtil.get(request,"website")%>
+                            </th>
+                        <tr>
+                    </thead>
+
+                    <%for(ActivitiesGroup activity : activities ){
+                        UserProfileNotificationSetting notification = activityContext.getNotificationSettingsByPIDGID(profile.getProfileId(),activity.getId_());
+                        boolean isNullNotificationSetting = activityContext.isNullNotificationSetting(notification);
+                    %>
+
+                        <tr  data-qa-id="row">
+                            <td class="text-middle" colspan="1">
+                                <%=LanguageUtil.get(request,activity.getName())%>
+                            </td>
+                            <td class="text-middle email-width" colspan="1">
+                                <aui:input name="email-address-notification" label="" type="checkbox" checked="<%=activityContext.isCheckedEmailAddress(notification)%>" value="<%=activity.getId_()%>"/>
+                            </td>
+                            <td class="text-middle" colspan="1">
+                                <aui:select name="<%= "email-address" + activity.getId_()%>" label="">
+                                   <aui:option label="" value="" name="default-option"/>
+                                    <%
+
+                                    for(ContactEmailAddress emailAddress: profileContext.getEmailAddresses()) {
+                                       boolean isExistsEmailRegistration = profileContext.isUserDefaultEmailRegistration(emailAddress, activity, isNullNotificationSetting);
+                                    %>
+                                       <aui:option selected="<%=isExistsEmailRegistration ? true : activityContext.isSelectedEmailAddress(emailAddress.getEmailAddressId(),notification)%>"
+                                            label="<%=emailAddress.getEmailAddress()%>" value="<%=emailAddress.getEmailAddressId()%>"/>
+                                   <%}%>
+                                </aui:select>
+                            </td>
+                            <td class="text-middle text-center" colspan="1">
+                                <aui:input name="website-notification" checked="<%=activityContext.isCheckedWebsite(notification)%>" label="" type="checkbox" value="<%=activity.getId_()%>"></aui:input>
+                            </td>
+                        </tr>
+                    <%}%>
+                </table>
+            </div>
+    <%}else{%>
+        <div class="alert alert-info" role="alert">
+            <p>
+                <liferay-ui:message key="notification-is-empty" />
+            </p>
+        </div>
+    <%}%>
+</aui:fieldset>

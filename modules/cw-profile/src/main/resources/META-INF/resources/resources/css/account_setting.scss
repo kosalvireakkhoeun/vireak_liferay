@@ -1,0 +1,94 @@
+@import "bourbon";
+@import "mixins";
+
+
+.portlet-account-setting-wrapper {
+    table {
+        td {
+            border: none !important;
+            .input-select-wrapper {
+                &.form-group {
+                    margin-bottom: 0;
+                }
+            }
+            .input-checkbox-wrapper {
+                justify-content: center;
+            }
+            @include media-breakpoint-down(sm) {
+                display: inline-block;
+            }
+        }
+    }
+
+    .title {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .form-group label {
+        font-size: medium;
+        line-height: 40px;
+    }
+
+    .email-width {
+        width: 10px;
+    }
+
+    .portlet-content {
+        .portlet-title-text {
+            display: none;
+        }
+    }
+
+    .account-settings-wrapper {
+        .cec-card {
+            &__header_fix_height {
+                display: none;
+            }
+        }
+    }
+
+    .notifications-holder {
+        .notification-item:last-child {
+            border-bottom: 0 !important;
+        }
+
+        .accordion__header {
+            .collapse-header {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        .accordion-body {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .input-checkbox-wrapper {
+            span {
+                padding-left: .625rem;
+            }
+        }
+    }
+
+    .account-settings-wrapper {
+        .cw-dropdown {
+            .dropdown-toggle {
+                height: 2.5rem !important;
+            }
+        }
+    }
+}
+.community-setting-popup {
+    .bg-light {
+        background-color: $gray-lignter-alt6 !important;
+    }
+    .scroll-content {
+        max-height: 20.375rem;
+    }
+}
+
+.tab-active {
+    border-bottom: 0.125rem solid $teal;
+}
