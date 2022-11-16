@@ -36,4 +36,46 @@
     }
     </script>
   </div>
+
+  	<aui:button-row>
+  		<aui:button type="submit" value="Hello"></aui:button>
+  		<aui:button type="cancel"></aui:button>
+  	</aui:button-row>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group input-text-wrapper">
+            <label><%=LanguageUtil.get(request,"language")%></label>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <aui:select label="" name="languageId">
+
+            <%
+            for (Locale curLocale : LanguageUtil.getAvailableLocales()) {
+                String curLocaleId = LocaleUtil.toLanguageId(curLocale);
+            %>
+
+                <aui:option label="<%= curLocale.getDisplayName(curLocale) %>" lang="<%= LocaleUtil.toW3cLanguageId(curLocale) %>" selected="<%= profile.getLanguage().equals(curLocaleId) %>" value="<%=curLocaleId%>" />
+
+            <%
+            }
+            %>
+
+       </aui:select>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group input-text-wrapper">
+            <label><%=LanguageUtil.get(request,"timezone")%></label>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <aui:input type="timeZone" name="timeZoneId" value="<%=profile.getTimezone()%>" label=""/>
+    </div>
+</div>
+
+
 </form>
